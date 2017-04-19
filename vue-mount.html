@@ -205,11 +205,30 @@ vnode是vm._render()方法的返回值 <br>
 <br>
 </p>
 <img class="example" src="images/vue/withinner.png" />
+<pre>
+  <code>
+//其实这个with里面执行的_c 就是 createElement
+vm._c = function (a, b, c, d) { 
+  return createElement(vm, a, b, c, d, false); 
+};
+Vue.prototype._v = createTextVNode;
+Vue.prototype._l = renderList;
+</code>
+</pre>
 <p>
-进一步根据这个方法将整个vm数据和模板转化为树形的VNode对象,这就是render返回的VNode类型数据
+在执行这个函数的时候，应为要取各个directive的值，所以会调用到每个值的get句柄，在这个过程中给每一个值的dep添加了whatcher，并返回了value，我想这个时候就是他们建立联系的时候
+</p>
+
+
+<p>
+进一步根据这个方法将整个vm数据和模板转化为树形的VNode对象,这就是render返回的VNode类型数据,
+这里并不是真实的
 <br>
 </p>
 <img class="example" src="images/vue/vnode.png" />
+
+
+
 
 <pre>
   <code>
