@@ -195,16 +195,22 @@ get函数：
 vnode是vm._render()方法的返回值 <br>
 这是初始的模板字符串： 
 
-
 </p>
 <img class="example" src="images/vue/templateString.png" />
 <p>
 这些字符串会被转为一个可执行Function，
 并用new Function（string) 这种方式在  with(this){} 下进行执行<br>
 因此不支持eval这种的环境是不可以运行vue的<br>
-下面是转化后的with(this)里的内容<br>
+下面是转化后的with(this)里的内容
+<br>
 </p>
 <img class="example" src="images/vue/withinner.png" />
+<p>
+进一步根据这个方法将整个vm数据和模板转化为树形的VNode对象,这就是render返回的VNode类型数据
+<br>
+</p>
+<img class="example" src="images/vue/vnode.png" />
+
 <pre>
   <code>
   Vue.prototype._update = function (vnode, hydrating) {
