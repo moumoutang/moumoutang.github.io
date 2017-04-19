@@ -216,9 +216,8 @@ Vue.prototype._l = renderList;
 </code>
 </pre>
 <p>
-在执行这个函数的时候，应为要取各个directive的值，所以会调用到每个值的get句柄，在这个过程中给每一个值的dep添加了whatcher，并返回了value，我想这个时候就是他们建立联系的时候
+在执行这个函数的时候，应为要取各个directive的值，所以会调用到每个值的get句柄，在这个过程中给每一个值的dep添加了whatcher，并返回了value，我想这个时候就是他们建立联系的时候,之后可以分析一下update的过程
 </p>
-
 
 <p>
 进一步根据这个方法将整个vm数据和模板转化为树形的VNode对象,这就是render返回的VNode类型数据,
