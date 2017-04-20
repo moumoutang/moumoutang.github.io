@@ -399,11 +399,15 @@ var nextTick = (function () {
     if (!isRealElement && sameVnode(oldVnode, vnode)) {
       // patch existing root node
       //已经有了真的prevnode  进入到update里
+      //
        patchVnode(oldVnode, vnode, insertedVnodeQueue, removeOnly);
     } else {
       </code>
-
     </pre>
+    <p>
+     采用异步的方式，很聪明，如果有多个watcher在同步的代理被push进去，则这些watcher可以被一并执行<br>
+     这也就有一个问题，在某些情况下 dom的更改没有我们想的那么快，可能我们自己程序里对于dom的操作需要延迟成异步<br>
+    </p>
 
     </section>
 <footer>
