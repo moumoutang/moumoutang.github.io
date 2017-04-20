@@ -267,6 +267,8 @@ if (isUndef(oldVnode)) {
       createElm(vnode, insertedVnodeQueue, parentElm, refElm);
     } else {
       var isRealElement = isDef(oldVnode.nodeType);
+      //这里的same判断并不是说用来判断严格相等的，而是根据一些特征检测判断是否有这些共同的属性而已
+      //updata的时候会走到一个条件去
       if (!isRealElement && sameVnode(oldVnode, vnode)) {
         // patch existing root node
         patchVnode(oldVnode, vnode, insertedVnodeQueue, removeOnly);
