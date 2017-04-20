@@ -79,7 +79,8 @@
     <p>
     我们会发现对于currentBranch有两个watcher <br>
     怎么会有两个咧？<br>
-    原来前面还有个watch。。。
+    原来前面还有个watch。。。<br>
+    用户自定义的watcher是先init于render形成的watcher的<br>
     </p>
     <pre>
       <code>
@@ -102,7 +103,102 @@
   };
     </code>
   </pre>
-    
+  <hr>
+  <p>
+    如果不是lazy 或者 sync同步的,则将现在的watcher 塞入一个队列中<br>
+    然后执行nextTick函数<br>
+    我们先不看nextTick，先看看
+  </p>
+  <pre>
+    <code>
+  Watcher.prototype.update = function update () {
+    /* istanbul ignore else */
+    if (this.lazy) {
+      this.dirty = true;
+    } else if (this.sync) {
+      this.run();
+    } else {
+      queueWatcher(this);
+    }
+  };
+
+  function queueWatcher (watcher) {
+  var id = watcher.id;
+  if (has[id] == null) {
+    has[id] = true;
+    if (!flushing) {
+      queue.push(watcher);
+    } else {
+      // if already flushing, splice the watcher based on its id
+      // if already past its id, it will be run next immediately.
+      var i = queue.length - 1;
+      while (i >= 0 && queue[i].id > watcher.id) {
+        i--;
+      }
+      queue.splice(Math.max(i, index) + 1, 0, watcher);
+    }
+    // queue the flush
+    if (!waiting) {
+      waiting = true;
+      nextTick(flushSchedulerQueue);
+    }
+  }
+}
+    </code>
+  </pre>
+    <hr>
+  <p>
+    flushSchedulerQueue的注释很有意思，给了很多信息:<br><br>
+    1.组件更新是有顺序的，先更新祖先节点然后再更新孩子节点，它们的id watcher在初始化的时候也一定时有顺序的<br><br>
+    2.用户定义的watcher的运行顺序一定是高于render的watcher，这是在初始化的时候自定义的wather是先与render的watcher<br><br>
+    3.如果一个组件在父组件的watcher的运行期间被销毁，则它的watcher也会跳过<br><br>
+    4.不要缓存队列的length，因为随时可能有新的wather入队<br><br>
+    5.在dev环境中会检查回环<br>
+
+  </p>
+    <pre>
+      <code>
+function flushSchedulerQueue () {
+  flushing = true;
+  var watcher, id, vm;
+
+  // Sort queue before flush.
+  // This ensures that:
+  // 1. Components are updated from parent to child. (because parent is always
+  //    created before the child)
+  //    组件更新是有顺序的，先更新祖先节点然后再更新孩子节点，它们的id在初始化的时候也一定时有顺序的
+  // 2. A component's user watchers are run before its render watcher (because
+  //    user watchers are created before the render watcher)
+  // 3. If a component is destroyed during a parent component's watcher run,
+  //    its watchers can be skipped.
+  queue.sort(function (a, b) { return a.id - b.id; });
+
+  // do not cache length because more watchers might be pushed
+  // as we run existing watchers
+  for (index = 0; index < queue.length; index++) {
+    watcher = queue[index];
+    id = watcher.id;
+    has[id] = null;
+    watcher.run();
+    // in dev build, check and stop circular updates.
+    if ("development" !== 'production' && has[id] != null) {
+      circular[id] = (circular[id] || 0) + 1;
+      if (circular[id] > config._maxUpdateCount) {
+        warn(
+          'You may have an infinite update loop ' + (
+            watcher.user
+              ? ("in watcher with expression \"" + (watcher.expression) + "\"")
+              : "in a component render function."
+          ),
+          watcher.vm
+        );
+        break
+      }
+    }
+  }
+      </code>
+    </pre>
+    <hr>
 
     </section>
 <footer>
