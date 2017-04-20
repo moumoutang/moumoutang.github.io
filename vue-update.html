@@ -88,6 +88,20 @@
   }
       </code>
     </pre>
+    <p>
+      接下来就是调用每一个watcher的update方法：
+    </p>
+  <pre>
+    <code>
+  Dep.prototype.notify = function notify () {
+    // stabilize the subscriber list first
+    var subs = this.subs.slice();
+    for (var i = 0, l = subs.length; i < l; i++) {
+      subs[i].update();
+    }
+  };
+    </code>
+  </pre>
     
 
     </section>
