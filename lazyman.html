@@ -7,60 +7,52 @@
     <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/tomorrow.css" />
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <title>ctyunw-Moumoutang.GitHub.io by moumoutang</title>
-
-    <style>
-      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
-
-      body { font-family: 'Droid Serif'; }
-      h1, h2, h3 {
-        font-family: 'Yanone Kaffeesatz';
-        font-weight: normal;
-      }
-      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
-      blockquote {
-            padding: 0 0 0 30px;
-            margin-bottom: 20px;
-            font-size: 1em;
-            border-left: 10px solid #e9e9e9;
-    }
-    .remark-code {
-    font-size: 12px;
-}
-    </style>
 </head>
 
 <body>
-<textarea id="source">
 
->实现一个LazyMan，可以按照以下方式调用:
+<div id="container">
+  <div class="inner">
+    <header>
+        <h1>简单例子来窥探一下vue mount的过程</h1>
+        <h2>ctyunaw</h2>
+    </header>
+    <section id="downloads" class="clearfix">
+        <a href="https://github.com/moumoutang" id="view-on-github" class="button"><span>View on GitHub</span></a>
+    </section>
+    <p>
+       实现一个LazyMan，可以按照以下方式调用: 
+    </p>
 
->  LazyMan(“Hank”)输出:
-```
-    Hi! This is Hank!
-    LazyMan(“Hank”).sleep(10).eat(“dinner”)输出
-    Hi! This is Hank!
-    //等待10秒..
-    Wake up after 10
-    Eat dinner~
-    LazyMan(“Hank”).eat(“dinner”).eat(“supper”)输出
-    Hi This is Hank!
-    Eat dinner~
-    Eat supper~
-    LazyMan(“Hank”).sleepFirst(5).eat(“supper”)输出
-    //等待5秒
-    Wake up after 5
-    Hi This is Hank!
-    Eat supper
-```
----
+    <pre>
+        <code>
+        >  LazyMan(“Hank”)输出:
+        Hi! This is Hank!
+        LazyMan(“Hank”).sleep(10).eat(“dinner”)输出
+        Hi! This is Hank!
+        //等待10秒..
+        Wake up after 10
+        Eat dinner~
+        LazyMan(“Hank”).eat(“dinner”).eat(“supper”)输出
+        Hi This is Hank!
+        Eat dinner~
+        Eat supper~
+        LazyMan(“Hank”).sleepFirst(5).eat(“supper”)输出
+        //等待5秒
+        Wake up after 5
+        Hi This is Hank!
+        Eat supper 
+        </code>
+    </pre>
+
+<pre>
+    <code>
 ### 普通的实现
-``` javascript
 function lazyMan(name){
      var step = [];
      var lazy = function(name){
@@ -92,13 +84,14 @@ function lazyMan(name){
         console.log(step)
      }
      return new lazy(name);
-}
-``` 
----
+}     
+    </code>
+</pre>
+<pre>
+    <code>
 ### promise实现
 promise实现sleepFirst还有待思考 
----
-``` javascript
+
 function lazyMan(name){
      
      var lazy = function(name){
@@ -129,11 +122,13 @@ function lazyMan(name){
 
       return new lazy(name);
 }
-``` 
-</textarea>
+    </code>
+</pre>
 
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>
-      var slideshow = remark.create();
-    </script>
+
+
+<script type="text/javascript" src="https://highlightjs.org/static/highlight.site.pack.js"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad()
+</script>
 </body>
