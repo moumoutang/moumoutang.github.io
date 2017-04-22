@@ -26,6 +26,12 @@
       </section>
       <hr>
       <section id="main_content">
+  <p>
+    对数组的操作是不能通过get set来响应的，所以vue对于数组的操作，<br>
+    如下图数组内的这些操作，都重写了Array的原生方法，<br>
+    对于push  unshift 和 splice的添加操作，对新的数组元素进行监听<br>
+    在重写的办法中，手动触发dep.notify()方法进行响应
+  </p>
   <pre>
   <code>
   var arrayProto = Array.prototype;
