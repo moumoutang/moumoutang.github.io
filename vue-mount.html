@@ -221,6 +221,8 @@ Vue.prototype._l = renderList;
 进一步根据这个方法将整个vm数据和模板转化为树形的VNode对象,这就是render返回的VNode类型数据,
 这里并不是真实的dom节点
 <br>
+在vue的模板编译过程中，还做出了优化，对于不用监听的那部分进行标记，这部分就不会被再次重新渲染了
+<br>
 </p>
 <img class="example" src="images/vue/vnode.png" />
 <p>
