@@ -145,11 +145,28 @@ prototype是对Function派生的对象来说的；js的设计初衷是想学习�
 
     Son.prototype = new Base()
     Son.constructor = Son
-    
 
+  </code>
+</pre>
 
+<p>
+  我们通常用new来创建新的对象，在ES5中有了 Object.create()方法<br>
+  接受的参数为产生对象的原型<br>
+</p>
 
+<pre>
+  <code>
+    Object.create(null)
 
+    这个对象非常特殊，甚至没有指向Object的原型，是一个没有原型的非常干净的对象
+
+    Object.create 的执行类似于
+
+    function create(o){
+      var  F = function(){}
+      F.prototype = 0
+      return  new F()
+    }
 
   </code>
 </pre>
