@@ -58,6 +58,11 @@ code {
     margin-bottom: 0;
 }
 
+.bold{
+    font-size: 26px;
+    font-weight: bold;
+}
+
 body{
     color: #333;
 }
