@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>leedsrourou</title>
-  <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search resu...">
+  <title>从wireshark来看SSL</title>
+  <meta name="description" content="从普通的代理或者浏览器的network我们其实很难看到很多网络通信的细节， 握手的细节等等都看不到，这样我们就要借助于wireshark这样的工具来查看了 （对此表示还是小白）">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/">
+  <link rel="canonical" href="/rourou/update/2017/05/24/use-wireshark-to-learn-ssl.html">
   <link rel="alternate" type="application/rss+xml" title="leedsrourou" href="/feed.xml">
   
   
@@ -64,38 +64,76 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <h1 class="page-heading">Posts</h1>
-  
-  
-
-
-  <ul class="post-list">
-    
-      <li>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">从wireshark来看SSL</h1>
+    <p class="post-meta">
+      <time datetime="2017-05-24T00:00:00+08:00" itemprop="datePublished">
         
-        <span class="post-meta">May 24, 2017</span>
+        May 24, 2017
+      </time>
+      </p>
+  </header>
 
-        <h2>
-          <a class="post-link" href="/jekyll/update/2017/05/24/welcome-to-jekyll.html">Welcome to Jekyll!</a>
-        </h2>
-      </li>
-    
-      <li>
-        
-        <span class="post-meta">May 24, 2017</span>
+  <div class="post-content" itemprop="articleBody">
+    <p>从普通的代理或者浏览器的network我们其实很难看到很多网络通信的细节， 
+握手的细节等等都看不到，这样我们就要借助于wireshark这样的工具来查看了 （对此表示还是小白）</p>
 
-        <h2>
-          <a class="post-link" href="/rourou/update/2017/05/24/use-wireshark-to-learn-ssl.html">从wireshark来看SSL</a>
-        </h2>
-      </li>
-    
-  </ul>
+<p>如果要看https，我们要在ws里的filter里面输入 ssl<br />
+然后访问：</p>
 
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
+<p><img src="https://moumoutang.github.io/images/wire/clienthello.jpg" alt="Alt text" /></p>
 
-</div>
+<p>我们可以看到过滤出的protocol中是TLS，TLS其实是SSL协议的升级版本了，可以看到它的版本号已经到1.2  <br />
+TLS 1.0通常被标示为SSL 3.1，TLS 1.1为SSL 3.2，TLS 1.2为SSL 3.3。</p>
+
+<h2 id="ssl的通信过程">SSL的通信过程</h2>
+<ul>
+  <li>client hello<br />
+从上图中我们可以发现，客户端向服务器端发出了client hello的握手，其中特别重要的是:
+    <ul>
+      <li>客户端协议的版本</li>
+      <li>Random Bytes（一段随机数)</li>
+      <li>一组signature hash algorithms（客户端可以接受的一系列加密算法）
+  支持的压缩方法(compression methods)</li>
+    </ul>
+  </li>
+  <li>
+    <p>server hello 
+  <img src="https://moumoutang.github.io/images/wire/2017-05-13_15-46-16.jpg" alt="Alt text" />
+  <img src="https://moumoutang.github.io/images/wire/2017-05-17_10-25-53.jpg" alt="Alt text" /></p>
+
+    <p>如上图所示，包含了图中所示的一些信息。但是却没有发现CA证书的传递，却有了change cipher spec(表示接下来的会话要加密进行)  <br />
+  还有一句the session reuses previously negotiated keys,说明这个过程是已经复用了之前已经生成的key <br />
+  那么初次建立连接的握手信息应该是什么呢？</p>
+
+    <p><img src="https://moumoutang.github.io/images/wire/2017-05-17_13-46-12.jpg" alt="Alt text" /></p>
+  </li>
+  <li>
+    <p>client key exchange ,change cipher spec, hello request 
+<img src="https://moumoutang.github.io/images/wire/2017-05-17_14-12-39.jpg" alt="Alt text" /></p>
+
+    <ul>
+      <li>client key exchange，里面包含了一串由公钥加密的随机数</li>
+      <li>change cipher spec要求在后续通信中使用加密模式</li>
+      <li>会话结束了</li>
+    </ul>
+  </li>
+</ul>
+
+<p>从这几次握手情况看，总共产生了三串随机数，客户端和服务器端用约定好的加密方法来加密，生成一个会话密钥，那么以后正常的对话跟这个会话密钥有什么关系  <br />
+后续正常的application data，内容会用三个随机数生成的绘画密钥来加密进行传递</p>
+
+<h3 id="握手的整个流程">握手的整个流程</h3>
+<p>在SSL握手之前，这个过程还是一个正常的tcp/ip通信，所以要经过正常的三次握手之后，才进行SSL握手 <br />
+<img src="https://moumoutang.github.io/images/wire/2017-05-22_16-24-11.jpg" alt="Alt text" /></p>
+
+
+  </div>
+
+  
+</article>
 
       </div>
     </main>
