@@ -83,7 +83,7 @@
 <p>如果要看https，我们要在ws里的filter里面输入 ssl<br />
 然后访问：</p>
 
-<p><img src="https://moumoutang.github.io/images/wire/clienthello.jpg" alt="Alt text" /></p>
+<p><img src="https://moumoutang.github.io/public/images/wire/clienthello.jpg" alt="Alt text" /></p>
 
 <p>我们可以看到过滤出的protocol中是TLS，TLS其实是SSL协议的升级版本了，可以看到它的版本号已经到1.2  <br />
 TLS 1.0通常被标示为SSL 3.1，TLS 1.1为SSL 3.2，TLS 1.2为SSL 3.3。</p>
@@ -101,18 +101,18 @@ TLS 1.0通常被标示为SSL 3.1，TLS 1.1为SSL 3.2，TLS 1.2为SSL 3.3。</p>
   </li>
   <li>
     <p>server hello 
-  <img src="https://moumoutang.github.io/images/wire/2017-05-13_15-46-16.jpg" alt="Alt text" />
-  <img src="https://moumoutang.github.io/images/wire/2017-05-17_10-25-53.jpg" alt="Alt text" /></p>
+  <img src="https://moumoutang.github.io/public/images/wire/2017-05-13_15-46-16.jpg" alt="Alt text" />
+  <img src="https://moumoutang.github.io/public/images/wire/2017-05-17_10-25-53.jpg" alt="Alt text" /></p>
 
     <p>如上图所示，包含了图中所示的一些信息。但是却没有发现CA证书的传递，却有了change cipher spec(表示接下来的会话要加密进行)  <br />
   还有一句the session reuses previously negotiated keys,说明这个过程是已经复用了之前已经生成的key <br />
   那么初次建立连接的握手信息应该是什么呢？</p>
 
-    <p><img src="https://moumoutang.github.io/images/wire/2017-05-17_13-46-12.jpg" alt="Alt text" /></p>
+    <p><img src="https://moumoutang.github.io/public/images/wire/2017-05-17_13-46-12.jpg" alt="Alt text" /></p>
   </li>
   <li>
     <p>client key exchange ,change cipher spec, hello request 
-<img src="https://moumoutang.github.io/images/wire/2017-05-17_14-12-39.jpg" alt="Alt text" /></p>
+<img src="https://moumoutang.github.io/public/images/wire/2017-05-17_14-12-39.jpg" alt="Alt text" /></p>
 
     <ul>
       <li>client key exchange，里面包含了一串由公钥加密的随机数</li>
@@ -127,7 +127,7 @@ TLS 1.0通常被标示为SSL 3.1，TLS 1.1为SSL 3.2，TLS 1.2为SSL 3.3。</p>
 
 <h3 id="握手的整个流程">握手的整个流程</h3>
 <p>在SSL握手之前，这个过程还是一个正常的tcp/ip通信，所以要经过正常的三次握手之后，才进行SSL握手 <br />
-<img src="https://moumoutang.github.io/images/wire/2017-05-22_16-24-11.jpg" alt="Alt text" /></p>
+![Alt text](https://moumoutang.github.io/public/images/wire/2017-05-22_16-24-11.jpg</p>
 
 
   </div>
