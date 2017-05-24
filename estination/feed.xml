@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-05-24T17:52:17+08:00</updated><id>/</id><title type="html">leedsrourou</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="/jekyll/update/2017/05/24/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2017-05-24T16:21:04+08:00</published><updated>2017-05-24T16:21:04+08:00</updated><id>/jekyll/update/2017/05/24/welcome-to-jekyll</id><content type="html" xml:base="/jekyll/update/2017/05/24/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">从wireshark来看SSL</title><link href="/rourou/update/2017/05/24/use-wireshark-to-learn-ssl.html" rel="alternate" type="text/html" title="从wireshark来看SSL" /><published>2017-05-24T00:00:00+08:00</published><updated>2017-05-24T00:00:00+08:00</updated><id>/rourou/update/2017/05/24/use-wireshark-to-learn-ssl</id><content type="html" xml:base="/rourou/update/2017/05/24/use-wireshark-to-learn-ssl.html">&lt;p&gt;从普通的代理或者浏览器的network我们其实很难看到很多网络通信的细节， 
+握手的细节等等都看不到，这样我们就要借助于wireshark这样的工具来查看了 （对此表示还是小白）&lt;/p&gt;
+
+&lt;p&gt;如果要看https，我们要在ws里的filter里面输入 ssl&lt;br /&gt;
+然后访问：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://moumoutang.github.io/public/images/wire/clienthello.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们可以看到过滤出的protocol中是TLS，TLS其实是SSL协议的升级版本了，可以看到它的版本号已经到1.2  &lt;br /&gt;
+TLS 1.0通常被标示为SSL 3.1，TLS 1.1为SSL 3.2，TLS 1.2为SSL 3.3。&lt;/p&gt;
+
+&lt;h2 id=&quot;ssl的通信过程&quot;&gt;SSL的通信过程&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;client hello&lt;br /&gt;
+从上图中我们可以发现，客户端向服务器端发出了client hello的握手，其中特别重要的是:
+    &lt;ul&gt;
+      &lt;li&gt;客户端协议的版本&lt;/li&gt;
+      &lt;li&gt;Random Bytes（一段随机数)&lt;/li&gt;
+      &lt;li&gt;一组signature hash algorithms（客户端可以接受的一系列加密算法）
+  支持的压缩方法(compression methods)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;server hello 
+  &lt;img src=&quot;https://moumoutang.github.io/public/images/wire/2017-05-13_15-46-16.jpg&quot; alt=&quot;Alt text&quot; /&gt;
+  &lt;img src=&quot;https://moumoutang.github.io/public/images/wire/2017-05-17_10-25-53.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;如上图所示，包含了图中所示的一些信息。但是却没有发现CA证书的传递，却有了change cipher spec(表示接下来的会话要加密进行)  &lt;br /&gt;
+  还有一句the session reuses previously negotiated keys,说明这个过程是已经复用了之前已经生成的key &lt;br /&gt;
+  那么初次建立连接的握手信息应该是什么呢？&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;https://moumoutang.github.io/public/images/wire/2017-05-17_13-46-12.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;client key exchange ,change cipher spec, hello request 
+&lt;img src=&quot;https://moumoutang.github.io/public/images/wire/2017-05-17_14-12-39.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;client key exchange，里面包含了一串由公钥加密的随机数&lt;/li&gt;
+      &lt;li&gt;change cipher spec要求在后续通信中使用加密模式&lt;/li&gt;
+      &lt;li&gt;会话结束了&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;从这几次握手情况看，总共产生了三串随机数，客户端和服务器端用约定好的加密方法来加密，生成一个会话密钥，那么以后正常的对话跟这个会话密钥有什么关系  &lt;br /&gt;
+后续正常的application data，内容会用三个随机数生成的绘画密钥来加密进行传递&lt;/p&gt;
+
+&lt;h3 id=&quot;握手的整个流程&quot;&gt;握手的整个流程&lt;/h3&gt;
+&lt;p&gt;在SSL握手之前，这个过程还是一个正常的tcp/ip通信，所以要经过正常的三次握手之后，才进行SSL握手 &lt;br /&gt;
+&lt;img src=&quot;https://moumoutang.github.io/public/images/wire/2017-05-22_16-24-11.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">从普通的代理或者浏览器的network我们其实很难看到很多网络通信的细节， 握手的细节等等都看不到，这样我们就要借助于wireshark这样的工具来查看了 （对此表示还是小白）</summary></entry></feed>
