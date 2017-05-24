@@ -1,17 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-05-24T17:51:44+08:00</updated><id>/</id><title type="html">leedsrourou</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
-</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="/jekyll/update/2017/05/24/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2017-05-24T16:21:04+08:00</published><updated>2017-05-24T16:21:04+08:00</updated><id>/jekyll/update/2017/05/24/welcome-to-jekyll</id><content type="html" xml:base="/jekyll/update/2017/05/24/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
-
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">从wireshark来看SSL</title><link href="/rourou/update/2017/05/24/use-wireshark-to-learn-ssl.html" rel="alternate" type="text/html" title="从wireshark来看SSL" /><published>2017-05-24T00:00:00+08:00</published><updated>2017-05-24T00:00:00+08:00</updated><id>/rourou/update/2017/05/24/use-wireshark-to-learn-ssl</id><content type="html" xml:base="/rourou/update/2017/05/24/use-wireshark-to-learn-ssl.html">&lt;p&gt;从普通的代理或者浏览器的network我们其实很难看到很多网络通信的细节， 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-05-24T18:25:08+08:00</updated><id>http://localhost:4000/</id><title type="html">leedsrourou</title><subtitle></subtitle><entry><title type="html">从wireshark来看SSL</title><link href="http://localhost:4000/rourou/update/2017/01/24/use-wireshark-to-learn-ssl.html" rel="alternate" type="text/html" title="从wireshark来看SSL" /><published>2017-01-24T00:00:00+08:00</published><updated>2017-01-24T00:00:00+08:00</updated><id>http://localhost:4000/rourou/update/2017/01/24/use-wireshark-to-learn-ssl</id><content type="html" xml:base="http://localhost:4000/rourou/update/2017/01/24/use-wireshark-to-learn-ssl.html">&lt;p&gt;从普通的代理或者浏览器的network我们其实很难看到很多网络通信的细节， 
 握手的细节等等都看不到，这样我们就要借助于wireshark这样的工具来查看了 （对此表示还是小白）&lt;/p&gt;
 
 &lt;p&gt;如果要看https，我们要在ws里的filter里面输入 ssl&lt;br /&gt;
@@ -61,4 +48,137 @@ TLS 1.0通常被标示为SSL 3.1，TLS 1.1为SSL 3.2，TLS 1.2为SSL 3.3。&lt;/
 
 &lt;h3 id=&quot;握手的整个流程&quot;&gt;握手的整个流程&lt;/h3&gt;
 &lt;p&gt;在SSL握手之前，这个过程还是一个正常的tcp/ip通信，所以要经过正常的三次握手之后，才进行SSL握手 &lt;br /&gt;
-&lt;img src=&quot;https://moumoutang.github.io/public/images/wire/2017-05-22_16-24-11.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">从普通的代理或者浏览器的network我们其实很难看到很多网络通信的细节， 握手的细节等等都看不到，这样我们就要借助于wireshark这样的工具来查看了 （对此表示还是小白）</summary></entry></feed>
+&lt;img src=&quot;https://moumoutang.github.io/public/images/wire/2017-05-22_16-24-11.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">从普通的代理或者浏览器的network我们其实很难看到很多网络通信的细节， 握手的细节等等都看不到，这样我们就要借助于wireshark这样的工具来查看了 （对此表示还是小白）</summary></entry><entry><title type="html">关于JS继承 原型链 等等</title><link href="http://localhost:4000/js/2016/12/22/prototype-new.html" rel="alternate" type="text/html" title="关于JS继承 原型链 等等" /><published>2016-12-22T00:00:00+08:00</published><updated>2016-12-22T00:00:00+08:00</updated><id>http://localhost:4000/js/2016/12/22/prototype-new</id><content type="html" xml:base="http://localhost:4000/js/2016/12/22/prototype-new.html">&lt;p&gt;学习JS的人都会被JS 各种prototype 或者 &lt;strong&gt;proto&lt;/strong&gt; 各种乱七八糟的概念弄的混乱，
+对于继承啊什么的..也是迷糊..&lt;/p&gt;
+
+&lt;p&gt;本文想来捋一捋，现在开始：&lt;/p&gt;
+
+&lt;h4 id=&quot;proto&quot;&gt;&lt;strong&gt;proto&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;设想我们有一个对象：&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// me是一个字面量对象&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;me&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ctyuna&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;me&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//true&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;me&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;instanceof&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//true&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;me&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;[object Object]&quot;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;虽然它是一个字面量对象,但内部的 __proto__还是指向Object，所以它可以拿到基本的Object的方法        &lt;br /&gt;
+__proto__存在的意义其实就是 一个指向对象真实的原型的指针,它理论上应该是每个对象的私有属性，不论是任何类型的变量都有这个值,除了值为undefined的变量&lt;/p&gt;
+
+&lt;h4 id=&quot;那么prototype呢&quot;&gt;那么prototype呢？&lt;/h4&gt;
+
+&lt;p&gt;遵循ECMAScript标准，someObject.[[Prototype]] 符号是用于指派 someObject 的原型。这个等同于 JavaScript 的 &lt;strong&gt;proto&lt;/strong&gt; 属性。从 ECMAScript 6 开始, [[Prototype]]        可以用Object.getPrototypeOf()和Object.setPrototypeOf()访问器来访问。         &lt;br /&gt;
+prototype是对Function派生的对象来说的；js的设计初衷是想学习其他语言的构造器概念，每一个Function都相当于一个构造器，可以通过new来派生新的实体对象&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hope&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;test1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hope2&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;test1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value2&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//&quot;hope2&quot;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;那么JS的继承跟原型链又有什么关系呢？  &lt;br /&gt;
+我们平时所说的继承两个意思：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;儿子继承父亲的各种方法和属性&lt;/li&gt;
+  &lt;li&gt;一旦父亲的一些属性变了，儿子若没有能覆盖它的新值，则也会跟着父亲变化；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;那么原型链不就可以办到这些？只要我们显视的去指定原型是什么， 假设我们有一个基类：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    function Base(){
+      this.name  = 'Base'
+    }
+
+    Base.prototype.sayName = function(){
+      console.log(this.name)
+    }
+
+    var  test1 = new Base()
+
+    假设我们有一个儿子要继承Base:
+    如果把原型链都指向一个地方 把constructor再执行一遍  
+    这样是否就可以了？
+
+    function Son(){
+      Base.apply(this)
+    }
+
+    Son.prototype =  Base.prototype
+
+    var test2 = new  Son() 
+
+    test2.sayName() //'Base'
+
+    看起来好像是可以，but：
+    如果我们要定一个Son自己的sayName ：
+
+
+    Son.prototype.sayName = function(){ 
+      console.log(&quot;I am son&quot;)
+    }
+
+    却发现：
+
+    test1.sayName()  // I am son
+
+    对，因为子和父的原型链都指向了一个地方， 那么子改变了原型，则会影响到父亲
+    ，这就不符合我们最初对于继承的设想
+
+    那么怎么样才能隔绝这种指针的联系，而又能让子保持对父亲的原型指向，
+    但又不影响父亲呢？
+    所以我们看到了js中经典的继承：
+
+    function Son(){}
+
+    Son.prototype = new Base()
+
+    现在我们会发现，给Son原型中添加或者改变东西都不会影响到Base了；
+
+    但是这里还有一个问题！！！！
+
+    var test1 = new Son()
+    function Base(){
+      this.name  = 'Base'
+    }
+
+    test1的constructor指向了Base，
+    因为constructor实际上是prototype的一个属性，
+    如果完全重置了prototype，则constructor的指向也会改变，
+    我们需要在这类操作之后把constructor指回来
+
+    Son.prototype = new Base()
+    Son.constructor = Son
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;我们通常用new来创建新的对象，在ES5中有了 Object.create()方法
+接受的参数为产生对象的原型&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;这个对象非常特殊，甚至没有指向&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;的原型，是一个没有原型的非常干净的对象&lt;/span&gt;
+
+    &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;的执行类似于&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt;  &lt;span class=&quot;nx&quot;&gt;F&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){}&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name></name></author><summary type="html">学习JS的人都会被JS 各种prototype 或者 proto 各种乱七八糟的概念弄的混乱， 对于继承啊什么的..也是迷糊..</summary></entry></feed>
