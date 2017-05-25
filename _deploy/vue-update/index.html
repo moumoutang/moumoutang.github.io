@@ -1,1 +1,265 @@
-<!DOCTYPE html> <html> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.2.3 --> <title>看源码：简单例子来窥探一下vue update | leedsrourou</title> <meta property="og:title" content="看源码：简单例子来窥探一下vue update" /> <meta property="og:locale" content="en_US" /> <link rel="canonical" href="/vue-update/" /> <meta property="og:url" content="/vue-update/" /> <meta property="og:site_name" content="leedsrourou" /> <meta property="og:type" content="article" /> <meta property="article:published_time" content="2017-02-02T00:00:00+08:00" /> <script type="application/ld+json"> {"@context":"http://schema.org","@type":"BlogPosting","headline":"看源码：简单例子来窥探一下vue update","datePublished":"2017-02-02T00:00:00+08:00","dateModified":"2017-02-02T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"/vue-update/"},"url":"/vue-update/"}</script> <!-- End Jekyll SEO tag --> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <link rel="stylesheet" href="/css/main.css"> <link rel="alternate" type="application/rss+xml" title="leedsrourou" href="/feed.xml"> </head> <body> <header class="site-header"> <nav class="navbar navbar-default"> <div class="container-fluid"> <!-- Brand and toggle get grouped for better mobile display --> <div class="navbar-header"> <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="/">leedsrourou</a> </div> <!-- Collect the nav links, forms, and other content for toggling --> <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1"> <ul class="nav navbar-nav navbar-right"> <li><a href="/about/">About</a></li> <li><a href="/contact/">Contact</a></li> <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Download <span class="caret"></span></a> <ul class="dropdown-menu"> <li><a target="_blank" href="https://github.com/sharu725/cards">Project</a></li> <li><a href="https://github.com/sharu725/cards/archive/master.zip">Download</a></li> <li role="separator" class="divider"></li> <li><a target="_blank" href="https://jekyll-themes.com">More Themes</a></li> </ul> </li> </ul> </div><!-- /.navbar-collapse --> </div><!-- /.container-fluid --> </nav> </header> <div class="container"> <div class="wrapper"> <div class="row"> <div class="col-md-8"> <article class="post" itemscope itemtype="http://schema.org/BlogPosting"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">看源码：简单例子来窥探一下vue update</h1> <p class="post-meta"><time datetime="2017-02-02T00:00:00+08:00" itemprop="datePublished">Feb 2, 2017</time></p> </header> <div class="post-content" itemprop="articleBody"> </div> </article> <div class="row"> </div> <div class="row"> <ul class="pager"> <li><a class="next" href="/vue-mount/">&laquo; 看源码：简单例子来窥探一下vue mount的过程</a></li> <li><a class="previous" href="/use-wireshark-to-learn-ssl/">从wireshark来看SSL &raquo;</a></li> </ul> </div> </div> <div class="col-md-4 mt20"> <div class="mt10 recent"> <h2>Recent articles</h2> <ul> <li> <p><a href="/vue-mount/">看源码：简单例子来窥探一下vue mount的过程</a><small>&nbsp;&nbsp;03 Feb 2017</small></p> </li> <li> <p><a href="/use-wireshark-to-learn-ssl/">从wireshark来看SSL</a><small>&nbsp;&nbsp;24 Jan 2017</small></p> </li> <li> <p><a href="/prototype-new/">关于JS继承 原型链 等等</a><small>&nbsp;&nbsp;22 Dec 2016</small></p> </li> </ul> </div> </div> </div> <div id="fb-root"></div> <script>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId="; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script> </div> </div> <footer> <div class="container"> <div class="row p20"> <div class="col-md-4 text-center mt25" > </div> <div class="col-md-4 text-center mt25"> <a target="_blank" href=""><li class="social facebook"><img src="/images/facebook.svg" alt=""></li></a> <a target="_blank" href=""><li class="social quora"><img src="/images/quora.svg" alt=""></li></a> <a target="_blank" href=""><li class="social twitter"><img src="/images/twitter.svg" alt=""></li></a> <a target="_blank" href=""><li class="social github"><img src="/images/github.svg" alt=""></li></a> </div> </div> </div> </footer> <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> <script src="/js/bootstrap.min.js"></script> </body> </html>
+<!DOCTYPE html> <html> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.2.3 --> <title>看源码：简单例子来窥探一下vue update | leedsrourou</title> <meta property="og:title" content="看源码：简单例子来窥探一下vue update" /> <meta property="og:locale" content="en_US" /> <meta name="description" content="之前有一篇大概讲了讲mount的过程：简单例子来窥探一下vue mount的过程" /> <meta property="og:description" content="之前有一篇大概讲了讲mount的过程：简单例子来窥探一下vue mount的过程" /> <link rel="canonical" href="/vue-update/" /> <meta property="og:url" content="/vue-update/" /> <meta property="og:site_name" content="leedsrourou" /> <meta property="og:type" content="article" /> <meta property="article:published_time" content="2017-02-02T00:00:00+08:00" /> <script type="application/ld+json"> {"@context":"http://schema.org","@type":"BlogPosting","headline":"看源码：简单例子来窥探一下vue update","datePublished":"2017-02-02T00:00:00+08:00","dateModified":"2017-02-02T00:00:00+08:00","description":"之前有一篇大概讲了讲mount的过程：简单例子来窥探一下vue mount的过程","mainEntityOfPage":{"@type":"WebPage","@id":"/vue-update/"},"url":"/vue-update/"}</script> <!-- End Jekyll SEO tag --> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <link rel="stylesheet" href="/css/main.css"> <link rel="alternate" type="application/rss+xml" title="leedsrourou" href="/feed.xml"> </head> <body> <header class="site-header"> <nav class="navbar navbar-default"> <div class="container-fluid"> <!-- Brand and toggle get grouped for better mobile display --> <div class="navbar-header"> <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="/">leedsrourou</a> </div> <!-- Collect the nav links, forms, and other content for toggling --> <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1"> <ul class="nav navbar-nav navbar-right"> <li><a href="/about/">About</a></li> <li><a href="/contact/">Contact</a></li> <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Download <span class="caret"></span></a> <ul class="dropdown-menu"> <li><a target="_blank" href="https://github.com/sharu725/cards">Project</a></li> <li><a href="https://github.com/sharu725/cards/archive/master.zip">Download</a></li> <li role="separator" class="divider"></li> <li><a target="_blank" href="https://jekyll-themes.com">More Themes</a></li> </ul> </li> </ul> </div><!-- /.navbar-collapse --> </div><!-- /.container-fluid --> </nav> </header> <div class="container"> <div class="wrapper"> <div class="row"> <div class="col-md-8"> <article class="post" itemscope itemtype="http://schema.org/BlogPosting"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">看源码：简单例子来窥探一下vue update</h1> <p class="post-meta"><time datetime="2017-02-02T00:00:00+08:00" itemprop="datePublished">Feb 2, 2017</time></p> </header> <div class="post-content" itemprop="articleBody"> <p>之前有一篇大概讲了讲mount的过程：<a href="https://moumoutang.github.io/vue-mount/">简单例子来窥探一下vue mount的过程</a></p> <p>还接着那个例子来说，为了看到update过程，将click的响应稍微改动一下</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">haha</span><span class="err">:</span> <span class="kd">function</span><span class="p">(){</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">currentBranch</span> <span class="o">=</span> <span class="s2">"develop"</span>
+<span class="p">}</span>
+
+</code></pre></div> <ul> <li>因为是设值，所以自然跳到了对应的set方法;</li> <li>没有相对应的setter，需要observe，但是因为只是一个字符串值，不需要进行监听;</li> <li>如果是object或者数组等引用类型的值就需要加上新的监听</li> </ul> <p>到了关键的dep.notify()</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">enumerable</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">configurable</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">get</span><span class="p">:</span> <span class="kd">function</span> <span class="nx">reactiveGetter</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">set</span><span class="p">:</span> <span class="kd">function</span> <span class="nx">reactiveSetter</span> <span class="p">(</span><span class="nx">newVal</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">getter</span> <span class="p">?</span> <span class="nx">getter</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">:</span> <span class="nx">val</span><span class="p">;</span>
+      <span class="cm">/* eslint-disable no-self-compare */</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">newVal</span> <span class="o">===</span> <span class="nx">value</span> <span class="o">||</span> <span class="p">(</span><span class="nx">newVal</span> <span class="o">!==</span> <span class="nx">newVal</span> <span class="o">&amp;&amp;</span> <span class="nx">value</span> <span class="o">!==</span> <span class="nx">value</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span>
+      <span class="p">}</span>
+      <span class="cm">/* eslint-enable no-self-compare */</span>
+      <span class="k">if</span> <span class="p">(</span><span class="s2">"development"</span> <span class="o">!==</span> <span class="s1">'production'</span> <span class="o">&amp;&amp;</span> <span class="nx">customSetter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">customSetter</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">setter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setter</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">newVal</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">val</span> <span class="o">=</span> <span class="nx">newVal</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nx">childOb</span> <span class="o">=</span> <span class="nx">observe</span><span class="p">(</span><span class="nx">newVal</span><span class="p">);</span>
+      <span class="nx">dep</span><span class="p">.</span><span class="nx">notify</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+</code></pre></div> <p>那么此时dep的值是什么呢？</p> <p>我们回顾上一次讲mount的时候，在执行eval函数的时候会调用到get句柄，在此时给每个被监听的值上加了watcher</p> <p><img src="https://moumoutang.github.io/public/images/vue/2017-04-20_14-52-14.png" alt="Alt text" /></p> <p>我们会发现对于currentBranch有两个watcher</p> <p>怎么会有两个咧？</p> <p>原来前面还有个watch。。。</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code> <span class="nx">watch</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nl">currentBranch</span><span class="p">:</span> <span class="s1">'fetchData'</span>
+  <span class="p">}</span>
+</code></pre></div> <p>用户自定义的watcher是先init于render形成的watcher的</p> <p>接下来就是调用每一个watcher的update方法：</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="nx">Dep</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">notify</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">notify</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// stabilize the subscriber list first</span>
+    <span class="kd">var</span> <span class="nx">subs</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">subs</span><span class="p">.</span><span class="nx">slice</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">subs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">subs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">update</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+</code></pre></div> <p>如果不是lazy 或者 sync同步的,则将现在的watcher 塞入一个队列中,然后执行nextTick函数。我们先不看nextTick，先看看</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">Watcher</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">update</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">update</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="cm">/* istanbul ignore else */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">lazy</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">dirty</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">sync</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">queueWatcher</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="kd">function</span> <span class="nx">queueWatcher</span> <span class="p">(</span><span class="nx">watcher</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">watcher</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">has</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">has</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">flushing</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">watcher</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// if already flushing, splice the watcher based on its id</span>
+      <span class="c1">// if already past its id, it will be run next immediately.</span>
+      <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="k">while</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">id</span> <span class="o">&gt;</span> <span class="nx">watcher</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">i</span><span class="o">--</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nx">queue</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">watcher</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// queue the flush</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">waiting</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">waiting</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">nextTick</span><span class="p">(</span><span class="nx">flushSchedulerQueue</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div> <p>flushSchedulerQueue的注释很有意思，给了很多信息:</p> <ul> <li> <p>组件更新是有顺序的，先更新祖先节点然后再更新孩子节点，它们的id watcher在初始化的时候也一定时有顺序的</p> </li> <li> <p>用户定义的watcher的运行顺序一定是高于render的watcher，这是在初始化的时候自定义的wather是先与render的watcher</p> </li> <li> <p>如果一个组件在父组件的watcher的运行期间被销毁，则它的watcher也会跳过</p> </li> <li> <p>不要缓存队列的length，因为随时可能有新的wather入队</p> </li> <li> <p>在dev环境中会检查回环</p> </li> </ul> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">flushSchedulerQueue</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">flushing</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">watcher</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">vm</span><span class="p">;</span>
+
+  <span class="c1">// Sort queue before flush.</span>
+  <span class="c1">// This ensures that:</span>
+  <span class="c1">// 1. Components are updated from parent to child. (because parent is always</span>
+  <span class="c1">//    created before the child)</span>
+  <span class="c1">//    组件更新是有顺序的，先更新祖先节点然后再更新孩子节点，它们的id在初始化的时候也一定时有顺序的</span>
+  <span class="c1">// 2. A component's user watchers are run before its render watcher (because</span>
+  <span class="c1">//    user watchers are created before the render watcher)</span>
+  <span class="c1">// 3. If a component is destroyed during a parent component's watcher run,</span>
+  <span class="c1">//    its watchers can be skipped.</span>
+  <span class="nx">queue</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">id</span> <span class="o">-</span> <span class="nx">b</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="p">});</span>
+
+  <span class="c1">// do not cache length because more watchers might be pushed</span>
+  <span class="c1">// as we run existing watchers</span>
+  <span class="k">for</span> <span class="p">(</span><span class="nx">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">index</span> <span class="o">&lt;</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">index</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">watcher</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">[</span><span class="nx">index</span><span class="p">];</span>
+    <span class="nx">id</span> <span class="o">=</span> <span class="nx">watcher</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+    <span class="nx">has</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="nx">watcher</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+    <span class="c1">// in dev build, check and stop circular updates.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s2">"development"</span> <span class="o">!==</span> <span class="s1">'production'</span> <span class="o">&amp;&amp;</span> <span class="nx">has</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">circular</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nx">circular</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">||</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">circular</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">config</span><span class="p">.</span><span class="nx">_maxUpdateCount</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">warn</span><span class="p">(</span>
+          <span class="s1">'You may have an infinite update loop '</span> <span class="o">+</span> <span class="p">(</span>
+            <span class="nx">watcher</span><span class="p">.</span><span class="nx">user</span>
+              <span class="p">?</span> <span class="p">(</span><span class="s2">"in watcher with expression \""</span> <span class="o">+</span> <span class="p">(</span><span class="nx">watcher</span><span class="p">.</span><span class="nx">expression</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"\""</span><span class="p">)</span>
+              <span class="p">:</span> <span class="s2">"in a component render function."</span>
+          <span class="p">),</span>
+          <span class="nx">watcher</span><span class="p">.</span><span class="nx">vm</span>
+        <span class="p">);</span>
+        <span class="k">break</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div> <p>重磅的nextTick，可以看到nextTick其实是个闭包函数的运行结果，返回一个function 我们调用nextTick 其实就是调用返回的那个function</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">nextTick</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+
+  <span class="p">......</span>
+   
+  <span class="k">return</span> <span class="kd">function</span> <span class="nx">queueNextTick</span> <span class="p">(</span><span class="nx">cb</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">_resolve</span><span class="p">;</span>
+
+    <span class="c1">//将flushSchedulerQueue的调用加入到callbacks中。。</span>
+
+    <span class="nx">callbacks</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span> <span class="nx">cb</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span> <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">_resolve</span><span class="p">)</span> <span class="p">{</span> <span class="nx">_resolve</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span> <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="c1">//执行timerFunc()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">pending</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">pending</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">timerFunc</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">cb</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">Promise</span> <span class="o">!==</span> <span class="s1">'undefined'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">_resolve</span> <span class="o">=</span> <span class="nx">resolve</span><span class="p">;</span>
+      <span class="p">})</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+<span class="p">})()</span>
+</code></pre></div> <p>timerFunc的定义： 可以看到有三种可能的方案，它的本质就是一个异步执行</p> <ul> <li>如果有原生的Promise的支持则使用promise</li> <li>如果没有则检测有没有MutationObserver，如果有的话，因为MutationObserver是检测dom变化的，所以create了一个 textnode，并改变其中的值，来引发MutationObserver的执行 -如果都没有就是最普通的setTimeOut</li> </ul> <p>可以看到不管是哪种方法都是异步执行的</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">Promise</span> <span class="o">!==</span> <span class="s1">'undefined'</span> <span class="o">&amp;&amp;</span> <span class="nx">isNative</span><span class="p">(</span><span class="nx">Promise</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">logError</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span> <span class="p">};</span>
+    <span class="nx">timerFunc</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">p</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">nextTickHandler</span><span class="p">).</span><span class="k">catch</span><span class="p">(</span><span class="nx">logError</span><span class="p">);</span>
+      <span class="c1">// in problematic UIWebViews, Promise.then doesn't completely break, but</span>
+      <span class="c1">// it can get stuck in a weird state where callbacks are pushed into the</span>
+      <span class="c1">// microtask queue but the queue isn't being flushed, until the browser</span>
+      <span class="c1">// needs to do some other work, e.g. handle a timer. Therefore we can</span>
+      <span class="c1">// "force" the microtask queue to be flushed by adding an empty timer.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">isIOS</span><span class="p">)</span> <span class="p">{</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">noop</span><span class="p">);</span> <span class="p">}</span>
+    <span class="p">};</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">MutationObserver</span> <span class="o">!==</span> <span class="s1">'undefined'</span> <span class="o">&amp;&amp;</span> <span class="p">(</span>
+    <span class="nx">isNative</span><span class="p">(</span><span class="nx">MutationObserver</span><span class="p">)</span> <span class="o">||</span>
+    <span class="c1">// PhantomJS and iOS 7.x</span>
+    <span class="nx">MutationObserver</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">===</span> <span class="s1">'[object MutationObserverConstructor]'</span>
+  <span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// use MutationObserver where native Promise is not available,</span>
+    <span class="c1">// e.g. PhantomJS IE11, iOS7, Android 4.4</span>
+    <span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">(</span><span class="nx">nextTickHandler</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">textNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nb">String</span><span class="p">(</span><span class="nx">counter</span><span class="p">));</span>
+    <span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="nx">textNode</span><span class="p">,</span> <span class="p">{</span>
+      <span class="na">characterData</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">});</span>
+    <span class="nx">timerFunc</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">counter</span> <span class="o">=</span> <span class="p">(</span><span class="nx">counter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="nx">textNode</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">counter</span><span class="p">);</span>
+    <span class="p">};</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// fallback to setTimeout</span>
+    <span class="cm">/* istanbul ignore next */</span>
+    <span class="nx">timerFunc</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">nextTickHandler</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+</code></pre></div> <p>我们可以看到nextTickHandler 就是执行 callbacks</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="kd">function</span> <span class="nx">nextTickHandler</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">pending</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">copies</span> <span class="o">=</span> <span class="nx">callbacks</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="nx">callbacks</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">copies</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">copies</span><span class="p">[</span><span class="nx">i</span><span class="p">]();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div> <p>比较完整的nextTick函数：</p> <p>这里还有个兼容性问题，在一写ios里，promise不会完全的break，它会之一直待在一个队列里，直到某些动作才能触发flush这个队列，所以这里强制手动的执行了一个什么都没有的setTimeout来避免这种环境</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">nextTick</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">callbacks</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">var</span> <span class="nx">pending</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">timerFunc</span><span class="p">;</span>
+
+  <span class="kd">function</span> <span class="nx">nextTickHandler</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">pending</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">copies</span> <span class="o">=</span> <span class="nx">callbacks</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="nx">callbacks</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">copies</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">copies</span><span class="p">[</span><span class="nx">i</span><span class="p">]();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// the nextTick behavior leverages the microtask queue, which can be accessed</span>
+  <span class="c1">// via either native Promise.then or MutationObserver.</span>
+  <span class="c1">// MutationObserver has wider support, however it is seriously bugged in</span>
+  <span class="c1">// UIWebView in iOS &gt;= 9.3.3 when triggered in touch event handlers. It</span>
+  <span class="c1">// completely stops working after triggering a few times... so, if native</span>
+  <span class="c1">// Promise is available, we will use it:</span>
+  <span class="cm">/* istanbul ignore if */</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">Promise</span> <span class="o">!==</span> <span class="s1">'undefined'</span> <span class="o">&amp;&amp;</span> <span class="nx">isNative</span><span class="p">(</span><span class="nx">Promise</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">logError</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span> <span class="p">};</span>
+    <span class="nx">timerFunc</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">p</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">nextTickHandler</span><span class="p">).</span><span class="k">catch</span><span class="p">(</span><span class="nx">logError</span><span class="p">);</span>
+      <span class="c1">// in problematic UIWebViews, Promise.then doesn't completely break, but</span>
+      <span class="c1">// it can get stuck in a weird state where callbacks are pushed into the</span>
+      <span class="c1">// microtask queue but the queue isn't being flushed, until the browser</span>
+      <span class="c1">// needs to do some other work, e.g. handle a timer. Therefore we can</span>
+      <span class="c1">// "force" the microtask queue to be flushed by adding an empty timer.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">isIOS</span><span class="p">)</span> <span class="p">{</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">noop</span><span class="p">);</span> <span class="p">}</span>
+    <span class="p">};</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">MutationObserver</span> <span class="o">!==</span> <span class="s1">'undefined'</span> <span class="o">&amp;&amp;</span> <span class="p">(</span>
+    <span class="nx">isNative</span><span class="p">(</span><span class="nx">MutationObserver</span><span class="p">)</span> <span class="o">||</span>
+    <span class="c1">// PhantomJS and iOS 7.x</span>
+    <span class="nx">MutationObserver</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">===</span> <span class="s1">'[object MutationObserverConstructor]'</span>
+  <span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// use MutationObserver where native Promise is not available,</span>
+    <span class="c1">// e.g. PhantomJS IE11, iOS7, Android 4.4</span>
+    <span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">observer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">(</span><span class="nx">nextTickHandler</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">textNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nb">String</span><span class="p">(</span><span class="nx">counter</span><span class="p">));</span>
+    <span class="nx">observer</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="nx">textNode</span><span class="p">,</span> <span class="p">{</span>
+      <span class="na">characterData</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">});</span>
+    <span class="nx">timerFunc</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">counter</span> <span class="o">=</span> <span class="p">(</span><span class="nx">counter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="nx">textNode</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">counter</span><span class="p">);</span>
+    <span class="p">};</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// fallback to setTimeout</span>
+    <span class="cm">/* istanbul ignore next */</span>
+    <span class="nx">timerFunc</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">nextTickHandler</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="kd">function</span> <span class="nx">queueNextTick</span> <span class="p">(</span><span class="nx">cb</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">_resolve</span><span class="p">;</span>
+    <span class="nx">callbacks</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span> <span class="nx">cb</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span> <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">_resolve</span><span class="p">)</span> <span class="p">{</span> <span class="nx">_resolve</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span> <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">pending</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">pending</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">timerFunc</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">cb</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">Promise</span> <span class="o">!==</span> <span class="s1">'undefined'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">_resolve</span> <span class="o">=</span> <span class="nx">resolve</span><span class="p">;</span>
+      <span class="p">})</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})();</span>
+
+</code></pre></div> <p>在这里我们不是有两个watcher吗？它们都会被加入到队列里，但是它们会调用两次nextTick吗？</p> <p>答案是不会，在这个时候nextTick只会调用一次</p> <p>有waiting这个值来标识，flushSchedulerQueue里run完所有队列里的watcher后会重置这个值 此时队列里有两个watcher，在flushSchedulerQueue内依次执行</p> <p>这两个watcher对应的执行： 用户自定义的先执行，是发送一个ajax请求； 然后执行render的watcher</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isRealElement</span> <span class="o">&amp;&amp;</span> <span class="nx">sameVnode</span><span class="p">(</span><span class="nx">oldVnode</span><span class="p">,</span> <span class="nx">vnode</span><span class="p">))</span> <span class="p">{</span>
+  <span class="c1">// patch existing root node</span>
+  <span class="c1">//已经有了真的prevnode  进入到update里</span>
+  <span class="c1">//</span>
+   <span class="nx">patchVnode</span><span class="p">(</span><span class="nx">oldVnode</span><span class="p">,</span> <span class="nx">vnode</span><span class="p">,</span> <span class="nx">insertedVnodeQueue</span><span class="p">,</span> <span class="nx">removeOnly</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+
+</code></pre></div> <p>采用异步的方式，很聪明，如果有多个watcher在同步的代理被push进去，则这些watcher可以被一并执行， 特别是对于render的watcher，可以避免重复调用</p> </div> </article> <div class="row"> </div> <div class="row"> <ul class="pager"> <li><a class="next" href="/vue-mount/">&laquo; 看源码：简单例子来窥探一下vue mount的过程</a></li> <li><a class="previous" href="/use-wireshark-to-learn-ssl/">从wireshark来看SSL &raquo;</a></li> </ul> </div> </div> <div class="col-md-4 mt20"> <div class="mt10 recent"> <h2>Recent articles</h2> <ul> <li> <p><a href="/vue-array-observer/">看源码：vue是怎么监听数组变化</a><small>&nbsp;&nbsp;05 Feb 2017</small></p> </li> <li> <p><a href="/vue-mount/">看源码：简单例子来窥探一下vue mount的过程</a><small>&nbsp;&nbsp;03 Feb 2017</small></p> </li> <li> <p><a href="/use-wireshark-to-learn-ssl/">从wireshark来看SSL</a><small>&nbsp;&nbsp;24 Jan 2017</small></p> </li> </ul> </div> </div> </div> <div id="fb-root"></div> <script>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId="; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script> </div> </div> <footer> <div class="container"> <div class="row p20"> <div class="col-md-4 text-center mt25" > </div> <div class="col-md-4 text-center mt25"> <a target="_blank" href=""><li class="social facebook"><img src="/images/facebook.svg" alt=""></li></a> <a target="_blank" href=""><li class="social quora"><img src="/images/quora.svg" alt=""></li></a> <a target="_blank" href=""><li class="social twitter"><img src="/images/twitter.svg" alt=""></li></a> <a target="_blank" href=""><li class="social github"><img src="/images/github.svg" alt=""></li></a> </div> </div> </div> </footer> <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> <script src="/js/bootstrap.min.js"></script> </body> </html>
