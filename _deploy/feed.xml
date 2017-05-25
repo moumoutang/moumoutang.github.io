@@ -5,8 +5,8 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 25 May 2017 14:04:39 +0800</pubDate>
-    <lastBuildDate>Thu, 25 May 2017 14:04:39 +0800</lastBuildDate>
+    <pubDate>Thu, 25 May 2017 14:16:42 +0800</pubDate>
+    <lastBuildDate>Thu, 25 May 2017 14:16:42 +0800</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
@@ -973,6 +973,110 @@ prototype是对Function派生的对象来说的；js的设计初衷是想学习�
         <pubDate>Thu, 22 Dec 2016 00:00:00 +0800</pubDate>
         <link>/prototype-new/</link>
         <guid isPermaLink="true">/prototype-new/</guid>
+        
+        
+        <category>js</category>
+        
+      </item>
+    
+      <item>
+        <title>http权威指南笔记</title>
+        <description>&lt;p&gt;####看了几十页才开始想起来记一下笔记了
+###基本的HTTP方法&lt;/p&gt;
+
+&lt;p&gt;一般head和get方法被认为是安全的方法，因为一般他们不需要服务器改变什么，但是在实际中get方法经常被开发者自己乱用，而此时可能就是一个不怎么安全的操作了；&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;method&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;DESC&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Qty&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;GET&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;GET方法，用于向服务器请求资源；&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;一般参数就放在url中，返回的内容在body中&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;HEAD&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;跟GET很类似，但是返回的报文中没有body&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;可以了解资源的情况，是否存在啊，类型啊，通过查看首部看看资源是否被改过（感觉一般是看content-length）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;PUT&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;向服务器写入文档&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;在服务器创建以url命名的 body为内容的资源，如果服务器该位置已经存在，则覆盖&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;POST&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;向服务器输入数据&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;这个就不多说了&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;TRACE&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;顾名思义，就是跟踪&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;，在一个请求从客户端发出到返回到客户端，会将请求报文放在body中返回回来，来查看报文在经历过整个过程后是否被修改过&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;OPTION&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;请求web服务器告知高中功能&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;DELETE&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;删除指定的资源&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;套接字 socket  指的是对tcp的编程封装，以抽象的方式来编程tcp&lt;/p&gt;
+
+&lt;p&gt;tcp三次握手：
+当两个端需要建立连接的时候，
+1.客户端会发送一个小的tcp分组，带有SYN标记，表示这是个连接请求；
+2.服务器收到这个分组后，会回复客户端一个分组  这个分组中SYN和AcK标记都被设置，说明请求已经被接受
+3.客户端向服务器发送一条确认信息，表示已经建立成功；现在的tcp栈都可以允许在这个分组中发送数据；&lt;/p&gt;
+
+&lt;p&gt;我们能看到的只是在建立连接上的时间延时，而看不到具体的三次握手过程&lt;/p&gt;
+
+&lt;p&gt;connection：
+表示本人只看到过connection是keep-alive的状态，其实它还有别的几种值，connection只能用于一段tcp链路，到下一段是要被剥离的，所以基本对于现代的网络来说keep-alive感觉并没有很大很大的作用，对于一些小白的中间代理，更可能使得后面的请求挂起。。。当然聪明的代理会有更聪明的办法理解和解决这个事情&lt;/p&gt;
+
+&lt;p&gt;持久链接 vs keep-live
+http1.1逐渐停止了对keep-alive的支持，用了持久链接来取代；
+keep-alive是1.0的东西    1.1已经不再支持      1.1所有的连接默认都是持久链接  除非特别指明  在事务处理完以后必须加上connetion:close 来关闭连接
+但客户端和服务器仍然可以随时关闭空闲的链接，不发送close并不意味服务器承诺永远将连接保持在打开状态&lt;/p&gt;
+
+&lt;p&gt;管道连接：
+将一组请求放在队列中，一个请求到达后，立即发送下一个请求，省去了等待响应的时间&lt;/p&gt;
+
+&lt;p&gt;遗留问题：http1的管道连接和http2有啥区别？&lt;/p&gt;
+
+&lt;p&gt;###缓存控制&lt;/p&gt;
+
+&lt;p&gt;实体标签 vs 最近修改日期&lt;/p&gt;
+
+&lt;p&gt;Etag是对文件某种指纹信息的存储  如果服务器传递了这个  则必须使用实体标签验证器    对应的  If-None-Match
+Last-Modified  如果服务器提供这个  则应该使用if-modified-since验证
+如果两者都提供了，客户端应该使用两种方案 这样的话1.0和1.1都可以正确响应&lt;/p&gt;
+
+&lt;p&gt;原则上1.1服务器都应该发送实体标签验证器
+1.1只有收到请求里同时有 if-modified-since和实体标签首部 ，两者都满足，才能返回304&lt;/p&gt;
+
+&lt;p&gt;控制缓存：Cache-Control&lt;/p&gt;
+
+&lt;p&gt;no-store 禁止缓存对响应进行复制，
+no-cache 可以存储在本地缓存区域中 只是再次使用的之前必须对源服务器进行再次验证，
+must-revalidate 严格遵循过期信息，如果没有跟原始服务器进行再验证  不能使用副本 如果原始服务器不可以用 返回504 gateway timeout错误
+max-age&lt;/p&gt;
+</description>
+        <pubDate>Sat, 05 Nov 2016 00:00:00 +0800</pubDate>
+        <link>/http/</link>
+        <guid isPermaLink="true">/http/</guid>
         
         
         <category>js</category>
