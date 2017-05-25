@@ -1,0 +1,13 @@
+.small, small{
+overflow : hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+height: 36px;
+}
+
+.pull-left{
+  height: 34px;
+  width: 100%;
+}

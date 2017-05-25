@@ -1,0 +1,216 @@
+<!DOCTYPE html> <html> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.2.3 --> <title>看源码：简单例子来窥探一下vue mount的过程 | leedsrourou</title> <meta property="og:title" content="看源码：简单例子来窥探一下vue mount的过程" /> <meta property="og:locale" content="en_US" /> <meta name="description" content="我们就从vue官方的一个例子开始看看，是怎么样一步步渲染出来的，下一篇讲讲怎么样子updata的， 例子很简单： 因为想看看事件绑定，所以就随便加了个click看看 ps: 本文只针对于生产环境中，且没有提前编译的本地运行文件，非sever render模式" /> <meta property="og:description" content="我们就从vue官方的一个例子开始看看，是怎么样一步步渲染出来的，下一篇讲讲怎么样子updata的， 例子很简单： 因为想看看事件绑定，所以就随便加了个click看看 ps: 本文只针对于生产环境中，且没有提前编译的本地运行文件，非sever render模式" /> <link rel="canonical" href="/vue-mount/" /> <meta property="og:url" content="/vue-mount/" /> <meta property="og:site_name" content="leedsrourou" /> <meta property="og:type" content="article" /> <meta property="article:published_time" content="2017-02-03T00:00:00+08:00" /> <script type="application/ld+json"> {"@context":"http://schema.org","@type":"BlogPosting","headline":"看源码：简单例子来窥探一下vue mount的过程","datePublished":"2017-02-03T00:00:00+08:00","dateModified":"2017-02-03T00:00:00+08:00","description":"我们就从vue官方的一个例子开始看看，是怎么样一步步渲染出来的，下一篇讲讲怎么样子updata的， 例子很简单： 因为想看看事件绑定，所以就随便加了个click看看 ps: 本文只针对于生产环境中，且没有提前编译的本地运行文件，非sever render模式","mainEntityOfPage":{"@type":"WebPage","@id":"/vue-mount/"},"url":"/vue-mount/"}</script> <!-- End Jekyll SEO tag --> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <link rel="stylesheet" href="/css/main.css"> <link rel="alternate" type="application/rss+xml" title="leedsrourou" href="/feed.xml"> </head> <body> <header class="site-header"> <nav class="navbar navbar-default"> <div class="container-fluid"> <!-- Brand and toggle get grouped for better mobile display --> <div class="navbar-header"> <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="/">leedsrourou</a> </div> <!-- Collect the nav links, forms, and other content for toggling --> <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1"> <ul class="nav navbar-nav navbar-right"> <li><a href="/about/">About</a></li> <li><a href="/contact/">Contact</a></li> <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Download <span class="caret"></span></a> <ul class="dropdown-menu"> <li><a target="_blank" href="https://github.com/sharu725/cards">Project</a></li> <li><a href="https://github.com/sharu725/cards/archive/master.zip">Download</a></li> <li role="separator" class="divider"></li> <li><a target="_blank" href="https://jekyll-themes.com">More Themes</a></li> </ul> </li> </ul> </div><!-- /.navbar-collapse --> </div><!-- /.container-fluid --> </nav> </header> <div class="container"> <div class="wrapper"> <div class="row"> <div class="col-md-8"> <article class="post" itemscope itemtype="http://schema.org/BlogPosting"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">看源码：简单例子来窥探一下vue mount的过程</h1> <p class="post-meta"><time datetime="2017-02-03T00:00:00+08:00" itemprop="datePublished">Feb 3, 2017</time></p> </header> <div class="post-content" itemprop="articleBody"> <p>我们就从vue官方的一个例子开始看看，是怎么样一步步渲染出来的，下一篇讲讲怎么样子updata的， 例子很简单： <br /> 因为想看看事件绑定，所以就随便加了个click看看 <br /> ps: 本文只针对于生产环境中，且没有提前编译的本地运行文件，非sever render模式</p> <p>模板文件： <img src="https://moumoutang.github.io/public/images/vue/html.png" alt="Alt text" /></p> <p>js：</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">demo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="na">el</span><span class="p">:</span> <span class="s1">'#demo'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">branches</span><span class="p">:</span> <span class="p">[</span><span class="s1">'master'</span><span class="p">,</span> <span class="s1">'dev'</span><span class="p">],</span>
+      <span class="na">currentBranch</span><span class="p">:</span> <span class="s1">'master'</span><span class="p">,</span>
+      <span class="na">commits</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">},</span>
+    <span class="na">beforeCreate</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'beforeCreate'</span><span class="p">)</span>
+    <span class="p">},</span>
+    <span class="na">created</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">fetchData</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="na">watch</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">currentBranch</span><span class="p">:</span> <span class="s1">'fetchData'</span>
+    <span class="p">},</span>
+    <span class="na">filters</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">truncate</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">newline</span> <span class="o">=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'\n'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nx">newline</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">?</span> <span class="nx">v</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">newline</span><span class="p">)</span> <span class="p">:</span> <span class="nx">v</span>
+      <span class="p">},</span>
+      <span class="na">formatDate</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">v</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/T|Z/g</span><span class="p">,</span> <span class="s1">' '</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">fetchData</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">()</span>
+        <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span>
+        <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="nx">apiURL</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">currentBranch</span><span class="p">)</span>
+        <span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="nx">self</span><span class="p">.</span><span class="nx">commits</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">)</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">commits</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">html_url</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">()</span>
+      <span class="p">},</span>
+      <span class="na">haha</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"haha"</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+</code></pre></div> <p>我们跳出之前种种的init行为直接来看看,如下图所示，直接看 vm.$mount(vm.$options.el);这步骤 之前的各种init也都执行过了：</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code>    <span class="c1">// expose real self</span>
+    <span class="nx">vm</span><span class="p">.</span><span class="nx">_self</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">;</span>
+    <span class="nx">initLifecycle</span><span class="p">(</span><span class="nx">vm</span><span class="p">);</span>
+    <span class="nx">initEvents</span><span class="p">(</span><span class="nx">vm</span><span class="p">);</span>
+    <span class="nx">initRender</span><span class="p">(</span><span class="nx">vm</span><span class="p">);</span>
+    <span class="nx">callHook</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s1">'beforeCreate'</span><span class="p">);</span>
+    <span class="nx">initInjections</span><span class="p">(</span><span class="nx">vm</span><span class="p">);</span> <span class="c1">// resolve injections before data/props</span>
+    <span class="nx">initState</span><span class="p">(</span><span class="nx">vm</span><span class="p">);</span>
+    <span class="nx">initProvide</span><span class="p">(</span><span class="nx">vm</span><span class="p">);</span> <span class="c1">// resolve provide after data/props</span>
+    <span class="nx">callHook</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s1">'created'</span><span class="p">);</span>
+
+    <span class="cm">/* istanbul ignore if */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="s2">"development"</span> <span class="o">!==</span> <span class="s1">'production'</span> <span class="o">&amp;&amp;</span> <span class="nx">config</span><span class="p">.</span><span class="nx">performance</span> <span class="o">&amp;&amp;</span> <span class="nx">mark</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">vm</span><span class="p">.</span><span class="nx">_name</span> <span class="o">=</span> <span class="nx">formatComponentName</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+      <span class="nx">mark</span><span class="p">(</span><span class="nx">endTag</span><span class="p">);</span>
+      <span class="nx">measure</span><span class="p">(((</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" init"</span><span class="p">),</span> <span class="nx">startTag</span><span class="p">,</span> <span class="nx">endTag</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">vm</span><span class="p">.</span><span class="nx">$mount</span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">el</span><span class="p">);</span>
+    <span class="p">}</span> 
+</code></pre></div> <p>$mount函数关键部分，我们可以看到直到 ’mounted‘钩子被执行的时候，动作就只是new了一个watcher，其他什么都没做， 那么这个watcher是什么呢？ <br /> watcher其实是vue中一个非常重要的东西，那些数据的监听最终执行的都是watcher <br /> $mount函数：</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code>    <span class="p">....</span>
+
+    <span class="nx">updateComponent</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">vm</span><span class="p">.</span><span class="nx">_update</span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_render</span><span class="p">(),</span> <span class="nx">hydrating</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">vm</span><span class="p">.</span><span class="nx">_watcher</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Watcher</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">updateComponent</span><span class="p">,</span> <span class="nx">noop</span><span class="p">);</span>
+
+    <span class="p">...</span>
+
+    <span class="nx">vm</span><span class="p">.</span><span class="nx">_isMounted</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">callHook</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s1">'mounted'</span><span class="p">);</span>
+</code></pre></div> <h4 id="watcher">Watcher</h4> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code> <span class="nx">Watcher</span><span class="err">的构造函数：</span>
+
+    <span class="kd">var</span> <span class="nx">Watcher</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Watcher</span> <span class="p">(</span>
+      <span class="nx">vm</span><span class="p">,</span>
+      <span class="nx">expOrFn</span><span class="p">,</span>
+      <span class="nx">cb</span><span class="p">,</span>
+      <span class="nx">options</span>
+    <span class="p">)</span> <span class="p">{</span>
+    
+    <span class="p">...</span>
+
+    <span class="c1">//将updateComponent 设置为getter</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">getter</span> <span class="o">=</span> <span class="nx">expOrFn</span><span class="p">;</span>
+
+    <span class="p">...</span>
+    <span class="c1">//执行get()</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">lazy</span>
+    <span class="p">?</span> <span class="kc">undefined</span>
+    <span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+</code></pre></div> <p>get函数：</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code>
+  <span class="nx">Watcher</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">get</span> <span class="p">()</span> <span class="p">{</span>
+
+  <span class="c1">//Dep.target 是全局唯一的，每次只能指向watcher</span>
+  <span class="c1">//function pushTarget (_target) {</span>
+  <span class="c1">//  if (Dep.target) { targetStack.push(Dep.target); }</span>
+  <span class="c1">//  Dep.target = _target;</span>
+  <span class="c1">//}</span>
+
+  <span class="nx">pushTarget</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">value</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">vm</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="c1">//执行上文的updateComponent</span>
+      <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getter</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">vm</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">handleError</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">vm</span><span class="p">,</span> <span class="p">(</span><span class="s2">"getter for watcher \""</span> <span class="o">+</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">expression</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"\""</span><span class="p">));</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getter</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">vm</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// "touch" every property so they are all tracked as</span>
+  <span class="c1">// dependencies for deep watching</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">deep</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">traverse</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">//从dep队列里pop出来一个wathcer替换target</span>
+  <span class="nx">popTarget</span><span class="p">();</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">cleanupDeps</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">value</span>
+
+</code></pre></div> <p>vnode是vm._render()方法的返回值,这是初始的模板字符串：</p> <p><img src="https://moumoutang.github.io/public/images/vue/templateString.png" alt="Alt text" /></p> <p>这些字符串会被转为一个可执行Function， 并用new Function（string) 这种方式在 with(this){} 下进行执行 <br /> 因此不支持eval这种的环境是不可以运行vue的 <br /> 下面是转化后的with(this)里的内容</p> <p><img src="https://moumoutang.github.io/public/images/vue/withinner.png" alt="Alt text" /></p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="c1">//其实这个with里面执行的_c 就是 createElement</span>
+<span class="nx">vm</span><span class="p">.</span><span class="nx">_c</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="k">return</span> <span class="nx">createElement</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span> 
+<span class="p">};</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_v</span> <span class="o">=</span> <span class="nx">createTextVNode</span><span class="p">;</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_l</span> <span class="o">=</span> <span class="nx">renderList</span><span class="p">;</span>
+</code></pre></div> <p>在执行这个函数的时候，应为要取各个directive的值，所以会调用到每个值的get句柄，在这个过程中给每一个值的dep添加了whatcher，并返回了value，我想这个时候就是他们建立联系的时候,之后可以分析一下update的过程，这里还是比较疑惑的</p> <p>进一步根据这个方法将整个vm数据和模板转化为树形的VNode对象,这就是render返回的VNode类型数据, 这里并不是真实的dom节点 在vue的模板编译过程中，还做出了优化，对于不用监听的那部分进行标记，这部分就不会被再次重新渲染了</p> <p><img src="https://moumoutang.github.io/public/images/vue/vnode.png" alt="Alt text" /></p> <p>下面来看比较核心的patch函数调用，vue会保存上一次的vnode作为prevVnode， 所以分两种情况：</p> <ul> <li>第一次渲染的时候，并没有prevVnode，把vm.$el当成prevVnode传入</li> <li>不是第一次的话就传入preVnode和vnode</li> </ul> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code>  <span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_update</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">vnode</span><span class="p">,</span> <span class="nx">hydrating</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="c1">//_isMounted来标识是否被mount过</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_isMounted</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">callHook</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span> <span class="s1">'beforeUpdate'</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">....</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">prevVnode</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// initial render</span>
+      <span class="nx">vm</span><span class="p">.</span><span class="nx">$el</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">__patch__</span><span class="p">(</span>
+        <span class="nx">vm</span><span class="p">.</span><span class="nx">$el</span><span class="p">,</span> <span class="nx">vnode</span><span class="p">,</span> <span class="nx">hydrating</span><span class="p">,</span> <span class="kc">false</span> <span class="cm">/* removeOnly */</span><span class="p">,</span>
+        <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">_parentElm</span><span class="p">,</span>
+        <span class="nx">vm</span><span class="p">.</span><span class="nx">$options</span><span class="p">.</span><span class="nx">_refElm</span>
+      <span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// updates</span>
+      <span class="nx">vm</span><span class="p">.</span><span class="nx">$el</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">__patch__</span><span class="p">(</span><span class="nx">prevVnode</span><span class="p">,</span> <span class="nx">vnode</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+  <span class="p">};</span>
+</code></pre></div> <p>patch内部如果没有oldVnode，就直接调用createElm <br /> 这个createElm其实很关键，在它之后生成了真正的dom，并且还绑定了事件 <br /> vue的事件绑定是和react不同的，并非用了事件代理机制，而是的确真实的绑在了当前的dom对象上</p> <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">isUndef</span><span class="p">(</span><span class="nx">oldVnode</span><span class="p">))</span> <span class="p">{</span>
+      <span class="c1">// empty mount (likely as component), create new root element</span>
+      <span class="nx">isInitialPatch</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">createElm</span><span class="p">(</span><span class="nx">vnode</span><span class="p">,</span> <span class="nx">insertedVnodeQueue</span><span class="p">,</span> <span class="nx">parentElm</span><span class="p">,</span> <span class="nx">refElm</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">isRealElement</span> <span class="o">=</span> <span class="nx">isDef</span><span class="p">(</span><span class="nx">oldVnode</span><span class="p">.</span><span class="nx">nodeType</span><span class="p">);</span>
+      <span class="c1">//这里的same判断并不是说用来判断严格相等的，而是根据一些特征检测判断是否有这些共同的属性而已</span>
+      <span class="c1">//updata的时候会走到一个条件去</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isRealElement</span> <span class="o">&amp;&amp;</span> <span class="nx">sameVnode</span><span class="p">(</span><span class="nx">oldVnode</span><span class="p">,</span> <span class="nx">vnode</span><span class="p">))</span> <span class="p">{</span>
+        <span class="c1">// patch existing root node</span>
+        <span class="nx">patchVnode</span><span class="p">(</span><span class="nx">oldVnode</span><span class="p">,</span> <span class="nx">vnode</span><span class="p">,</span> <span class="nx">insertedVnodeQueue</span><span class="p">,</span> <span class="nx">removeOnly</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">isRealElement</span><span class="p">)</span> <span class="p">{</span>
+          
+          <span class="p">.....</span>
+
+          <span class="c1">// either not server-rendered, or hydration failed.</span>
+          <span class="c1">// create an empty node and replace it</span>
+          <span class="c1">// 会将现在的node置为空vnode</span>
+          <span class="nx">oldVnode</span> <span class="o">=</span> <span class="nx">emptyNodeAt</span><span class="p">(</span><span class="nx">oldVnode</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">// replacing existing element</span>
+        <span class="kd">var</span> <span class="nx">oldElm</span> <span class="o">=</span> <span class="nx">oldVnode</span><span class="p">.</span><span class="nx">elm</span><span class="p">;</span>
+        <span class="c1">// 获取现在的dom节点的parent，以便于之后取代</span>
+        <span class="kd">var</span> <span class="nx">parentElm$1</span> <span class="o">=</span> <span class="nx">nodeOps</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">(</span><span class="nx">oldElm</span><span class="p">);</span>
+		
+		<span class="nx">createElm</span><span class="p">(</span>
+          <span class="nx">vnode</span><span class="p">,</span>
+          <span class="nx">insertedVnodeQueue</span><span class="p">,</span>
+          <span class="c1">// extremely rare edge case: do not insert if old element is in a</span>
+          <span class="c1">// leaving transition. Only happens when combining transition +</span>
+          <span class="c1">// keep-alive + HOCs. (#4590)</span>
+          <span class="nx">oldElm</span><span class="p">.</span><span class="nx">_leaveCb</span> <span class="p">?</span> <span class="kc">null</span> <span class="p">:</span> <span class="nx">parentElm$1</span><span class="p">,</span>
+          <span class="nx">nodeOps</span><span class="p">.</span><span class="nx">nextSibling</span><span class="p">(</span><span class="nx">oldElm</span><span class="p">)</span>
+        <span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">isDef</span><span class="p">(</span><span class="nx">vnode</span><span class="p">.</span><span class="nx">parent</span><span class="p">))</span> <span class="p">{</span>
+          <span class="c1">// component root element replaced.</span>
+          <span class="c1">// update parent placeholder node element, recursively</span>
+          <span class="kd">var</span> <span class="nx">ancestor</span> <span class="o">=</span> <span class="nx">vnode</span><span class="p">.</span><span class="nx">parent</span><span class="p">;</span>
+          <span class="k">while</span> <span class="p">(</span><span class="nx">ancestor</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">ancestor</span><span class="p">.</span><span class="nx">elm</span> <span class="o">=</span> <span class="nx">vnode</span><span class="p">.</span><span class="nx">elm</span><span class="p">;</span>
+            <span class="nx">ancestor</span> <span class="o">=</span> <span class="nx">ancestor</span><span class="p">.</span><span class="nx">parent</span><span class="p">;</span>
+          <span class="p">}</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">isPatchable</span><span class="p">(</span><span class="nx">vnode</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">cbs</span><span class="p">.</span><span class="nx">create</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">cbs</span><span class="p">.</span><span class="nx">create</span><span class="p">[</span><span class="nx">i</span><span class="p">](</span><span class="nx">emptyNode</span><span class="p">,</span> <span class="nx">vnode</span><span class="p">.</span><span class="nx">parent</span><span class="p">);</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">isDef</span><span class="p">(</span><span class="nx">parentElm$1</span><span class="p">))</span> <span class="p">{</span>
+          <span class="nx">removeVnodes</span><span class="p">(</span><span class="nx">parentElm$1</span><span class="p">,</span> <span class="p">[</span><span class="nx">oldVnode</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">isDef</span><span class="p">(</span><span class="nx">oldVnode</span><span class="p">.</span><span class="nx">tag</span><span class="p">))</span> <span class="p">{</span>
+          <span class="nx">invokeDestroyHook</span><span class="p">(</span><span class="nx">oldVnode</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">invokeInsertHook</span><span class="p">(</span><span class="nx">vnode</span><span class="p">,</span> <span class="nx">insertedVnodeQueue</span><span class="p">,</span> <span class="nx">isInitialPatch</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">vnode</span><span class="p">.</span><span class="nx">elm</span>
+  <span class="p">}</span>
+
+</code></pre></div> <p>可以看到creatElem之后创建了真实的dom节点：</p> <p><img src="https://moumoutang.github.io/public/images/vue/2017-04-20_12-07-37.png" alt="Alt text" /></p> <p>也可以看到事件绑定的情况：</p> <p><img src="https://moumoutang.github.io/public/images/vue/2017-04-20_12-09-46.png" alt="Alt text" /></p> <p>接下来就是清空之前的parentElm$1,至此就完成了一个初次渲染</p> </div> </article> <div class="row"> </div> <div class="row"> <ul class="pager"> <li><a class="previous" href="/vue-update/">看源码：简单例子来窥探一下vue update &raquo;</a></li> </ul> </div> </div> <div class="col-md-4 mt20"> <div class="mt10 recent"> <h2>Recent articles</h2> <ul> <li> <p><a href="/vue-update/">看源码：简单例子来窥探一下vue update</a><small>&nbsp;&nbsp;02 Feb 2017</small></p> </li> <li> <p><a href="/use-wireshark-to-learn-ssl/">从wireshark来看SSL</a><small>&nbsp;&nbsp;24 Jan 2017</small></p> </li> <li> <p><a href="/prototype-new/">关于JS继承 原型链 等等</a><small>&nbsp;&nbsp;22 Dec 2016</small></p> </li> </ul> </div> </div> </div> <div id="fb-root"></div> <script>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId="; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script> </div> </div> <footer> <div class="container"> <div class="row p20"> <div class="col-md-4 text-center mt25" > </div> <div class="col-md-4 text-center mt25"> <a target="_blank" href=""><li class="social facebook"><img src="/images/facebook.svg" alt=""></li></a> <a target="_blank" href=""><li class="social quora"><img src="/images/quora.svg" alt=""></li></a> <a target="_blank" href=""><li class="social twitter"><img src="/images/twitter.svg" alt=""></li></a> <a target="_blank" href=""><li class="social github"><img src="/images/github.svg" alt=""></li></a> </div> </div> </div> </footer> <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> <script src="/js/bootstrap.min.js"></script> </body> </html>

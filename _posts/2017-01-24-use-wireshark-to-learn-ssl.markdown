@@ -1,7 +1,8 @@
 ---
 layout: post
 title:  "从wireshark来看SSL"
-categories: rourou update
+categories: js
+color: 00BFFF
 ---
 
 从普通的代理或者浏览器的network我们其实很难看到很多网络通信的细节， 
