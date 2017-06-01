@@ -1,0 +1,69 @@
+---
+layout: post
+title:  "深入浅出node笔记"
+categories: node
+color: 00CD00
+---
+
+### 异步编程
+
+##### 异步编程的难点
+
+- 异常处理
+	``` javascript
+	var asyn = function (callback) {
+		process.nextTick(callback)
+	}
+	//按照下面这样写是捕获不到的
+	try{
+		asyn(callback)
+	}catch (e) {
+		//TODO
+	}
+	``` 
+	node有个约定，如果在发生异常的情况下，将异常作为回调函数的第一个实参传回，如果为空值，则表明异步调用没有异常抛出，如果为空值，则
+	表明没有异常
+	``` javascript
+	asyn(function(err, result){
+	})
+	``` 
+
+	还有另外一种情况：
+	``` javascript
+	try{
+		req.body = JSON.parse(buf, options.reviver)
+		callback()
+	}catch (err) {
+		err.body = buf
+		err.status = 400
+		callback(err)
+	}
+	``` 
+
+	看上面的代码，如果没有发生异常，则正常；如果异常发生在callback，那么callback会被执行两遍；     
+	改写：
+	``` javascript
+	try{
+		req.body = JSON.parse(buf, options.reviver)
+	}catch (err) {
+		err.body = buf
+		err.status = 400
+		callback(err)
+	}
+	callback()
+
+	``` 
+	在编写异步方法的时候，只要将异常正确传递给回调函数，不需要过多处理；
+- 函数嵌套过深      
+	异步callback造成的
+- 阻塞代码   
+	没有线程沉睡功能  为了实现它就很容易写出占用cpu时长的程序  这往往是不好的
+- 多线程编程
+- 异步转同步
+
+
+##### 异步编程的解决方案
+
+
+
+

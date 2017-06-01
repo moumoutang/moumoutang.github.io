@@ -3,11 +3,84 @@
   <channel>
     <title>leedsrourou</title>
     <description></description>
-    <link>/</link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 25 May 2017 14:16:42 +0800</pubDate>
-    <lastBuildDate>Thu, 25 May 2017 14:16:42 +0800</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 01 Jun 2017 18:33:34 +0800</pubDate>
+    <lastBuildDate>Thu, 01 Jun 2017 18:33:34 +0800</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
+    
+      <item>
+        <title>深入浅出node笔记</title>
+        <description>&lt;h3 id=&quot;异步编程&quot;&gt;异步编程&lt;/h3&gt;
+
+&lt;h5 id=&quot;异步编程的难点&quot;&gt;异步编程的难点&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;异常处理
+    &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;asyn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nextTick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//按照下面这样写是捕获不到的&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;asyn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;//TODO&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;p&gt;node有个约定，如果在发生异常的情况下，将异常作为回调函数的第一个实参传回，如果为空值，则表明异步调用没有异常抛出，如果为空值，则
+  表明没有异常&lt;/p&gt;
+    &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nx&quot;&gt;asyn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;还有另外一种情况：&lt;/p&gt;
+    &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;reviver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;buf&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;400&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;看上面的代码，如果没有发生异常，则正常；如果异常发生在callback，那么callback会被执行两遍；   &lt;br /&gt;
+  改写：&lt;/p&gt;
+    &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;reviver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;buf&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;400&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;p&gt;在编写异步方法的时候，只要将异常正确传递给回调函数，不需要过多处理；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;函数嵌套过深    &lt;br /&gt;
+  异步callback造成的&lt;/li&gt;
+  &lt;li&gt;阻塞代码 &lt;br /&gt;
+  没有线程沉睡功能  为了实现它就很容易写出占用cpu时长的程序  这往往是不好的&lt;/li&gt;
+  &lt;li&gt;多线程编程&lt;/li&gt;
+  &lt;li&gt;异步转同步&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;异步编程的解决方案&quot;&gt;异步编程的解决方案&lt;/h5&gt;
+
+</description>
+        <pubDate>Wed, 31 May 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/node/</link>
+        <guid isPermaLink="true">http://localhost:4000/node/</guid>
+        
+        
+        <category>node</category>
+        
+      </item>
     
       <item>
         <title>看源码：vue是怎么监听数组变化</title>
@@ -65,8 +138,8 @@
 &lt;/div&gt;
 </description>
         <pubDate>Sun, 05 Feb 2017 00:00:00 +0800</pubDate>
-        <link>/vue-array-observer/</link>
-        <guid isPermaLink="true">/vue-array-observer/</guid>
+        <link>http://localhost:4000/vue-array-observer/</link>
+        <guid isPermaLink="true">http://localhost:4000/vue-array-observer/</guid>
         
         
         <category>vue</category>
@@ -371,8 +444,8 @@ vue的事件绑定是和react不同的，并非用了事件代理机制，而是
 
 </description>
         <pubDate>Fri, 03 Feb 2017 00:00:00 +0800</pubDate>
-        <link>/vue-mount/</link>
-        <guid isPermaLink="true">/vue-mount/</guid>
+        <link>http://localhost:4000/vue-mount/</link>
+        <guid isPermaLink="true">http://localhost:4000/vue-mount/</guid>
         
         
         <category>vue</category>
@@ -761,8 +834,8 @@ vue的事件绑定是和react不同的，并非用了事件代理机制，而是
 特别是对于render的watcher，可以避免重复调用&lt;/p&gt;
 </description>
         <pubDate>Thu, 02 Feb 2017 00:00:00 +0800</pubDate>
-        <link>/vue-update/</link>
-        <guid isPermaLink="true">/vue-update/</guid>
+        <link>http://localhost:4000/vue-update/</link>
+        <guid isPermaLink="true">http://localhost:4000/vue-update/</guid>
         
         
         <category>vue</category>
@@ -825,8 +898,8 @@ TLS 1.0通常被标示为SSL 3.1，TLS 1.1为SSL 3.2，TLS 1.2为SSL 3.3。&lt;/
 
 </description>
         <pubDate>Tue, 24 Jan 2017 00:00:00 +0800</pubDate>
-        <link>/use-wireshark-to-learn-ssl/</link>
-        <guid isPermaLink="true">/use-wireshark-to-learn-ssl/</guid>
+        <link>http://localhost:4000/use-wireshark-to-learn-ssl/</link>
+        <guid isPermaLink="true">http://localhost:4000/use-wireshark-to-learn-ssl/</guid>
         
         
         <category>js</category>
@@ -971,8 +1044,8 @@ prototype是对Function派生的对象来说的；js的设计初衷是想学习�
 &lt;/div&gt;
 </description>
         <pubDate>Thu, 22 Dec 2016 00:00:00 +0800</pubDate>
-        <link>/prototype-new/</link>
-        <guid isPermaLink="true">/prototype-new/</guid>
+        <link>http://localhost:4000/prototype-new/</link>
+        <guid isPermaLink="true">http://localhost:4000/prototype-new/</guid>
         
         
         <category>js</category>
@@ -1075,8 +1148,8 @@ must-revalidate 严格遵循过期信息，如果没有跟原始服务器进行�
 max-age&lt;/p&gt;
 </description>
         <pubDate>Sat, 05 Nov 2016 00:00:00 +0800</pubDate>
-        <link>/http/</link>
-        <guid isPermaLink="true">/http/</guid>
+        <link>http://localhost:4000/http/</link>
+        <guid isPermaLink="true">http://localhost:4000/http/</guid>
         
         
         <category>js</category>
@@ -1182,8 +1255,8 @@ max-age&lt;/p&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Tue, 01 Nov 2016 00:00:00 +0800</pubDate>
-        <link>/lazyman/</link>
-        <guid isPermaLink="true">/lazyman/</guid>
+        <link>http://localhost:4000/lazyman/</link>
+        <guid isPermaLink="true">http://localhost:4000/lazyman/</guid>
         
         
         <category>js</category>
